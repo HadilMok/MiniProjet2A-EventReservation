@@ -1,0 +1,15 @@
+{
+    "require": {
+        "symfony/webapp-pack": "^1.4",
+        "doctrine/orm": "^3.6",
+        "doctrine/doctrine-bundle": "^3.2",
+        "symfony/form": "^8.0",
+        "symfony/validator": "^8.0",
+        "symfony/mailer": "^8.0",
+        "vich/uploader-bundle": "^2.9",
+        "lexik/jwt-authentication-bundle": "^3.2"
+    },
+    "require-dev": {
+        "symfony/maker-bundle": "^1.67"
+    }
+}
