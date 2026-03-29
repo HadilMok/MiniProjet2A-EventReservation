@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block title %}Réservation confirmée{% endblock %}
+{% block body %}
+<div class="text-center mt-5">
+    <h1 class="text-success">Réservation confirmée !</h1>
+    <p class="lead">Merci {{ reservation.name }}, votre réservation pour <strong>{{ event.title }}</strong> est confirmée.</p>
+    <p>Un email de confirmation a été envoyé à {{ reservation.email }}</p>
+    <a href="{{ path('app_events') }}" class="btn btn-primary mt-3">Retour aux événements</a>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block title %}Connexion{% endblock %}
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <h1 class="mb-4">Connexion</h1>
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <form method="post" action="{{ path('app_login') }}">
+            <div class="mb-3">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="_password" class="form-control" required>
+            </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <button type="submit" class="btn btn-primary w-100">Se connecter</button>
+        </form>
+        <div class="mt-3">
+            <button class="btn btn-outline-secondary w-100" id="passkey-btn">
+                Se connecter avec Passkey
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+document.getElementById('passkey-btn').addEventListener('click', async () => {
+    if (!window.PublicKeyCredential) {
+        alert('Passkeys non supportés sur ce navigateur');
+        return;
+    }
+    alert('Authentification Passkey en cours...');
+});
+</script>
+{% endblock %}
