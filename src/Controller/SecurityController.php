@@ -25,3 +25,10 @@ class SecurityController extends AbstractController
         throw new \LogicException('Intercepted by firewall.');
     }
 }
+
+    #[Route('/api/passkey/options', name: 'api_passkey_options', methods: ['POST'])]
+    public function passkeyOptions(\Symfony\Component\HttpFoundation\Request $request, \App\Service\PasskeyAuthService $passkeyService): \Symfony\Component\HttpFoundation\JsonResponse 
+    {
+        // Dans un flux réel, on identifierait l'utilisateur ici
+        return $this->json(['options' => 'webauthn_challenge_generated_successfully']);
+    }
