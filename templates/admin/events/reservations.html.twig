@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}Réservations — {{ event.title }}{% endblock %}
+{% block body %}
+<h1>Réservations pour : {{ event.title }}</h1>
+<p>Total : {{ reservations|length }} réservation(s)</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reservation in reservations %}
+        <tr>
+            <td>{{ reservation.name }}</td>
+            <td>{{ reservation.email }}</td>
+            <td>{{ reservation.phone }}</td>
+            <td>{{ reservation.createdAt|date('d/m/Y H:i') }}</td>
+        </tr>
+        {% else %}
+            <tr><td colspan="4">Aucune réservation</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ path('admin_events') }}" class="btn btn-secondary">Retour</a>
+{% endblock %}
