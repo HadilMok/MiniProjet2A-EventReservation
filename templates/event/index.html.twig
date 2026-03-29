@@ -1,26 +1,65 @@
 {% extends 'base.html.twig' %}
-{% block title %}Événements{% endblock %}
+
+{% block title %}Liste des Événements{% endblock %}
+
 {% block body %}
-<h1 class="mb-4">Événements à venir</h1>
-<div class="row">
+<div class="d-flex justify-content-between align-items-center mb-5">
+    <div>
+        <h1 class="display-5 fw-bold text-dark">L'aventure commence ici</h1>
+        <p class="text-secondary fs-5">Parcourez les événements qui feront 2026.</p>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     {% for event in events %}
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            {% if event.image %}
-                <img src="{{ asset('uploads/' ~ event.image) }}" class="card-img-top" alt="{{ event.title }}">
-            {% endif %}
-            <div class="card-body">
-                <h5 class="card-title">{{ event.title }}</h5>
-                <p class="card-text">{{ event.description|slice(0, 100) }}...</p>
-                <p><strong>Date :</strong> {{ event.date|date('d/m/Y H:i') }}</p>
-                <p><strong>Lieu :</strong> {{ event.location }}</p>
-                <p><strong>Places :</strong> {{ event.seats }}</p>
-                <a href="{{ path('app_event_show', {id: event.id}) }}" class="btn btn-primary">Voir détails</a>
+        <div class="col">
+            <div class="card h-100 border-0 shadow hover-lift transition">
+                <img src="https://picsum.photos/seed/{{ event.id }}/600/350" class="card-img-top rounded-top-3" alt="{{ event.title }}">
+                
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <small class="text-muted"><i class="bi bi-tag-fill me-1"></i>IA & Technologie</small>
+                    </div>
+                    
+                    <h3 class="card-title h4 fw-bold mb-3 text-dark">{{ event.title }}</h3>
+                    
+                    <p class="text-secondary small mb-3">
+                        <i class="bi bi-calendar3 me-2 text-primary"></i>
+                        Dimanche 15 Juin 2026 à 14:00
+                    </p>
+                    
+                    <p class="card-text text-secondary mb-4">
+                        {{ event.description|slice(0, 120) }}...
+                    </p>
+                </div>
+                
+                <div class="card-footer bg-white border-0 p-4 pt-0">
+                    <div class="d-grid">
+                        <a href="{{ path('app_event_reserve', {'id': event.id}) }}" class="btn btn-primary fw-semibold py-2">
+                            <i class="bi bi-ticket-perforated me-2"></i>Réserver ma place
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
     {% else %}
-        <p>Aucun événement disponible.</p>
+        <div class="col-12 text-center py-5">
+            <div class="alert alert-info shadow-sm text-center py-4 fs-5">
+                <i class="bi bi-info-circle me-2"></i>
+                Aucun événement n'est disponible pour le moment.
+            </div>
+        </div>
     {% endfor %}
 </div>
+
+<style>
+    .rounded-top-3 { border-top-left-radius: 0.75rem; border-top-right-radius: 0.75rem; }
+    .hover-lift:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.15) !important;
+    }
+    .transition {
+        transition: all 0.3s ease-in-out;
+    }
+</style>
 {% endblock %}

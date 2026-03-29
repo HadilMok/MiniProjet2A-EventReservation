@@ -1,25 +1,20 @@
-# MiniProjet2A - EventReservation (FIA3-GL)
+# EventReservation - FIA3-GL
 
-## Étudiant
-- **Nom :** Hadil Mokni
-- **Classe :** FIA3-GL
+## Auteur
+**Hadil Mokni**
 
-## Description
-Application de gestion de réservations d'événements avec sécurité renforcée.
+## Technologies
+- **Framework:** Symfony 7
+- **Sécurité:** JWT & WebAuthn (Passkeys)
+- **Base de données:** MariaDB
+- **Conteneurisation:** Docker & Docker Compose
 
-## Fonctionnalités Clés
-- **Backend :** Symfony 7 & MariaDB.
-- **Sécurité :** JWT (LexikBundle) & Passkeys (WebAuthn) pour l'admin.
-- **Logique :** Décrémentation automatique des places et confirmation par mail.
-- **Tests :** Tests unitaires et fonctionnels avec PHPUnit.
-- **DevOps :** Docker-compose (PHP, Nginx, MariaDB).
+## Installation avec Docker
+1. `docker compose up -d --build`
+2. `docker compose exec php composer install`
+3. `docker compose exec php php bin/console doctrine:migrations:migrate --no-interaction`
 
-## Installation
-1. `git clone https://github.com/HadilMok/MiniProjet2A-EventReservation.git`
-2. `docker-compose up -d`
-3. `composer install`
-4. `php bin/console doctrine:migrations:migrate`
-
-## Accès
-- **Public :** `/events`
-- **Admin :** `/admin/dashboard` (Sécurisé par JWT/Passkey)
+## Fonctionnalités
+- Liste d'événements avec design Bootstrap 5.
+- Système de réservation (décrémentation des places).
+- Simulation d'authentification sans mot de passe (Passkeys).
