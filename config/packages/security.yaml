@@ -1,45 +1,23 @@
 security:
     password_hashers:
-        App\Entity\User:
-            algorithm: bcrypt
-        App\Entity\Admin:
-            algorithm: bcrypt
-
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     providers:
-        user_provider:
+        app_user_provider:
             entity:
                 class: App\Entity\User
-                property: username
-        admin_provider:
-            entity:
-                class: App\Entity\Admin
-                property: username
-
+                property: email
     firewalls:
+        login:
+            pattern: ^/api/login
+            stateless: true
+            json_login:
+                check_path: /api/login_check
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
         api:
             pattern: ^/api
             stateless: true
             jwt: ~
-
-        admin:
-            pattern: ^/admin
-            lazy: true
-            provider: admin_provider
-            form_login:
-                login_path: app_login
-                check_path: app_login
-            logout:
-                path: app_logout
-
         main:
             lazy: true
-            provider: user_provider
-            form_login:
-                login_path: app_login
-                check_path: app_login
-            logout:
-                path: app_logout
-
-    access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+            provider: app_user_provider
