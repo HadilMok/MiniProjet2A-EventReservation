@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ event.title }}{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>{{ event.title }}</h1>
+        {% if event.image %}
+            <img src="{{ asset('uploads/' ~ event.image) }}" class="img-fluid mb-3" alt="{{ event.title }}">
+        {% endif %}
+        <p>{{ event.description }}</p>
+        <p><strong>Date :</strong> {{ event.date|date('d/m/Y H:i') }}</p>
+        <p><strong>Lieu :</strong> {{ event.location }}</p>
+        <p><strong>Places disponibles :</strong> {{ event.seats }}</p>
+        <a href="{{ path('app_event_reserve', {id: event.id}) }}" class="btn btn-success">Réserver</a>
+    </div>
+</div>
+{% endblock %}
