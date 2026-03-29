@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block title %}À Propos - EventReservation{% endblock %}
+{% block body %}
+<div class="container mt-5 py-5">
+    <div class="row justify-content-center text-center">
+        <div class="col-lg-8">
+            <div class="card shadow border-0 rounded-4 overflow-hidden">
+                <div class="card-body p-5">
+                    <h1 class="display-4 fw-bold mb-4">À propos du Projet</h1>
+                    <p class="lead text-muted mb-5">
+                        <strong>EventReservation</strong> est une plateforme de gestion d'événements développée par Hadil Mokni.
+                    </p>
+                    <div class="row g-4 text-start">
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded-3 bg-light">
+                                <h5 class="fw-bold text-primary">🚀 Objectifs</h5>
+                                <p class="small mb-0">Gestion CRUD des événements et système de réservation dynamique.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded-3 bg-light">
+                                <h5 class="fw-bold text-primary">🔒 Sécurité</h5>
+                                <p class="small mb-0">Authentification sécurisée avec JWT et Passkeys.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 pt-4 border-top">
+                        <h3 class="fw-bold">Hadil Mokni</h3>
+                        <p class="text-primary fw-medium">Génie Logiciel - FIA3 (2026)</p>
+                    </div>
+                    <a href="{{ path('app_events') }}" class="btn btn-primary mt-4 px-5">Voir les événements</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

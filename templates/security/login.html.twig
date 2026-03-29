@@ -1,38 +1,63 @@
 {% extends 'base.html.twig' %}
-{% block title %}Connexion{% endblock %}
+
+{% block title %}Connexion - EventReserve{% endblock %}
+
 {% block body %}
 <div class="row justify-content-center">
-    <div class="col-md-4">
-        <h1 class="mb-4">Connexion</h1>
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
-        <form method="post" action="{{ path('app_login') }}">
-            <div class="mb-3">
-                <label for="username">Nom d'utilisateur</label>
-                <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}" required>
-            </div>
-            <div class="mb-3">
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="_password" class="form-control" required>
-            </div>
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            <button type="submit" class="btn btn-primary w-100">Se connecter</button>
-        </form>
-        <div class="mt-3">
-            <button class="btn btn-outline-secondary w-100" id="passkey-btn">
-                Se connecter avec Passkey
-            </button>
+    <div class="col-md-5">
+        <div class="card shadow-lg border-0 rounded-4 p-4 mt-5">
+            <h2 class="text-center fw-bold mb-4">Connexion</h2>
+
+            <form method="post">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                <div class="mb-3">
+                    <label for="inputUsername" class="form-label text-secondary small fw-bold">Nom d'utilisateur</label>
+                    <input type="text" value="{{ last_username }}" name="_username" id="inputUsername" class="form-control form-control-lg bg-light border-0" autocomplete="username" required autofocus>
+                </div>
+
+                <div class="mb-3">
+                    <label for="inputPassword" class="form-label text-secondary small fw-bold">Mot de passe</label>
+                    <input type="password" name="_password" id="inputPassword" class="form-control form-control-lg bg-light border-0" autocomplete="current-password" required>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <div class="d-grid gap-2 mt-4">
+                    <button class="btn btn-primary btn-lg fw-bold shadow-sm" type="submit">
+                        Se connecter
+                    </button>
+                    <button type="button" id="passkey-btn" class="btn btn-outline-dark btn-lg small">
+                        <i class="bi bi-fingerprint me-2"></i>Se connecter avec Passkey
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
 <script>
-document.getElementById('passkey-btn').addEventListener('click', async () => {
-    if (!window.PublicKeyCredential) {
-        alert('Passkeys non supportés sur ce navigateur');
-        return;
-    }
-    alert('Authentification Passkey en cours...');
-});
+    // Logique simplifiée pour le bouton Passkey (Simulation pour FIA3-GL)
+    document.getElementById('passkey-btn').addEventListener('click', async () => {
+        const btn = document.getElementById('passkey-btn');
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Génération du challenge...';
+        
+        try {
+            const response = await fetch('/api/passkey/options', { method: 'POST' });
+            const data = await response.json();
+            
+            if (data.options) {
+                alert("🚀 Challenge Passkey généré : " + data.options + "\n\nSimulation : Dans un flux réel, le navigateur demanderait maintenant votre empreinte ou Windows Hello.");
+            }
+        } catch (e) {
+            alert("Erreur lors de la connexion Passkey.");
+        } finally {
+            btn.innerHTML = '<i class="bi bi-fingerprint me-2"></i>Se connecter avec Passkey';
+        }
+    });
 </script>
 {% endblock %}
