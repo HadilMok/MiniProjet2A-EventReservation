@@ -26,7 +26,8 @@
         "symfony/form": "^8.0",
         "symfony/validator": "^7.4",
         "symfony/asset": "^8.0",
-        "symfony/mailer": "^8.0"
+        "symfony/mailer": "^8.0",
+        "symfony/dotenv": "^8.0"
     },
     "config": {
         "allow-plugins": {
