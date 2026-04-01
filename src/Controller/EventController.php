@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Entity\Reservation;
@@ -21,6 +22,14 @@ class EventController extends AbstractController
         ]);
     }
 
+    // --- AJOUT DE LA PAGE ABOUT RÉCUPÉRÉE ---
+    #[Route('/about', name: 'app_about')]
+    public function about(): Response
+    {
+        // On utilise le chemin exact trouvé dans ton historique Git
+        return $this->render('about/index.html.twig');
+    }
+
     #[Route('/events/{id}', name: 'app_event_show')]
     public function show(int $id, EventRepository $repo): Response
     {
@@ -40,11 +49,13 @@ class EventController extends AbstractController
             $reservation->setEvent($event);
             $em->persist($reservation);
             $em->flush();
+
             $reservationService->sendConfirmationEmail(
                 $reservation->getEmail(),
                 $reservation->getName(),
                 $event->getTitle()
             );
+
             return $this->render('reservation/confirmation.html.twig', [
                 'reservation' => $reservation,
                 'event' => $event,
@@ -52,7 +63,7 @@ class EventController extends AbstractController
         }
 
         return $this->render('reservation/new.html.twig', [
-            'form' => $form,
+            'form' => $form->createView(), // Ajout de createView() pour plus de sécurité
             'event' => $event,
         ]);
     }

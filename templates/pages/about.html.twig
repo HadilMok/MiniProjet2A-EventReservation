@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}À propos{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-primary">À propos de Event Reserve</h1>
+    <p class="lead">Ceci est mon projet de 2ème année pour la gestion des réservations d'événements.</p>
+    <hr>
+    <p>Le système permet de consulter des événements en temps réel et de réserver sa place instantanément.</p>
+    <a href="{{ path('app_events') }}" class="btn btn-outline-primary">Retour à l'accueil</a>
+</div>
+{% endblock %}
